@@ -1,0 +1,125 @@
+﻿:root {
+    --barva-nadpisu: rgb(16, 110, 153);
+    --barva-podkladu: rgb(34, 126, 169);
+}
+
+/*Obecný style*/
+body {
+    margin: 0;
+}
+
+#container {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0;
+    border-bottom: solid 2px var(--barva-nadpisu);
+}
+header h1 {
+    margin: 0;
+}
+header nav a {
+    padding: 10px;
+    font-size: 21px;
+    font-weight: bold;
+}
+main {
+
+}
+footer {
+    text-align: center;
+}
+
+h1 {
+    font-size: 38px;
+}
+h2 {
+    font-size: 33px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/*Secure design options*/
+
+#secure-panel {
+    text-align: center;
+    box-shadow: 0 0 3px 1px gray;
+
+    width: 340px;
+    margin: 80px auto;
+    padding: 1em 0.5em;
+    border: 1px solid gray;
+}
+#secure-panel > h2 {
+    margin: 0 auto;
+    width: 80%;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    border-bottom: gray 2px solid;
+}
+#secure-panel h3 {
+    font-size: 1.5em;
+    margin: 15px 0; 
+}
+.secure-form {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+}
+.secure-form input {
+    border-radius: 10px;
+    max-width: 90%;
+    border: gray solid 2px;
+    padding: 5px;
+    font-size: 17px;
+    margin: 8px auto;
+}
+.secure-form input:last-child {
+    cursor: pointer;
+    max-width: 80%;
+    width: 100%;
+    color: white;
+    background: var(--barva-podkladu);
+}
+.secure-form input:last-child:hover {
+    border-radius: 15px;
+    transition: 0.15s;
+}
+.secure-form input:focus {
+    box-shadow: 0 0 6px 2px rgb(123, 207, 238);
+    outline: none;
+}
+#secure-panel a {
+    text-decoration: none;
+    color: var(--barva-podkladu);
+
+    font-size: 1.1em;
+    padding: 15px 0;
+
+    border-top: gray 2px solid;
+    margin: 15px 10%;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    
+    display: flex;
+    align-items: flex-start;
+}
+#chybova-hlaska {
+    text-align: center;
+    line-height: 15px;
+    height: 15px;
+    width: 80%;
+    margin: 5px auto;
+
+    white-space: nowrap;
+    color: darkred;
+}

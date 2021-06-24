@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Registrace";
+}
+
+<div id="secure-panel">
+    <h2>Fitness RV</h2>
+    <form action="/Uzivatel/Zaregistrovat" method="post" class="secure-form">
+        <h3>Zaregistrovat se</h3>
+        <input type="text" name="email" placeholder="E-mail..." />
+        <input type="password" name="heslo" placeholder="Heslo..." />
+        <input type="password" name="kontrolni_heslo" placeholder="Heslo pro kontrolu..." />
+        <input type="submit" value="Zaregistrovat se" />
+    </form>
+    <p id="chybova-hlaska">@ViewData["Chyba"]</p>
+
+    <a href="/Uzivatel/Prihlasit">Přihlásit se</a>
+</div>

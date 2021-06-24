@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div id="container">
+        <header>
+            <a href="/Home/Index"><h1>Fitness RV</h1></a>
+            <nav>
+                <a href="/Home/Index">Domů</a>
+                <a href="/Rezervace/Formular">Vytvořit Rezervaci</a>
+                @if (Context.Session.GetString("Uzivatel") != null)
+                {
+                    <a href="/Uzivatel/Profil">Profil</a>
+                    <a href="/Uzivatel/Odhlasit">Odhlásit</a>
+                }
+                else
+                {
+                    <a href="/Uzivatel/Prihlasit">Přihlásit</a>
+                    <a href="/Uzivatel/Zaregistrovat">Zaregistrovat</a>
+                }
+            </nav>
+        </header>
+        <main>
+            @RenderBody()
+        </main>
+        <footer>
+            Luboš Kettner &copy; 2021
+        </footer>
+    </div>
+</body>
+</html>
