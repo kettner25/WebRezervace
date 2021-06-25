@@ -494,7 +494,10 @@ input[type=number] {
         padding-left: 35px;
     }
     .rezervace {
-        grid-template-columns: repeat(2, auto) 140px;
+        grid-template-columns: repeat(2, auto);
+    }
+    .rezervace div, .rezervace a {
+        font-size: 15px;
     }
     .rezervace div:nth-child(5) {
         text-align: left;
