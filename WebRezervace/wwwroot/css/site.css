@@ -312,7 +312,7 @@ input[type=number] {
     display: grid;
     width: 100%;
     cursor: pointer;
-    grid-template-columns: 200px 260px 130px 120px auto 35px;
+    grid-template-columns: 200px 270px 130px 120px auto 35px;
     border-bottom: gray 2px solid; 
 }
 .rezervace div, .rezervace a {
