@@ -1,0 +1,39 @@
+﻿@{
+    DateTime datumPrvnihoTydne = DateTime.Now.Date - TimeSpan.FromDays((int)DateTime.Now.DayOfWeek == 0 ? 6 : (int)DateTime.Now.DayOfWeek - 1);
+    string[] dny = { "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota", "Neděle" };
+}
+<div>
+    @for (int i = 0; i < 28; i += 7)
+    {
+        DateTime datumTydne = datumPrvnihoTydne + TimeSpan.FromDays(i);
+        <table>
+            <caption>Týden: @datumTydne.Day. @datumTydne.Month. - @((datumTydne + TimeSpan.FromDays(6)).Day). @((datumTydne + TimeSpan.FromDays(6)).Month).</caption>
+            <tr>
+                <th></th>
+                @for (int j = 9; j < 16; j++)
+                {
+                    @:<th>@j:00 - @(j+1):00</th>
+                }
+            </tr>
+            @for (int y = 0; y < 7; y++)
+            {
+                DateTime datumKonkternihoDne = datumTydne + TimeSpan.FromDays(y);
+                @:<tr>
+                    <th>@dny[y] @datumKonkternihoDne.Day. @datumKonkternihoDne.Month.</th>
+                    @for (int j = 9; j < 16; j++)
+                    {
+                        int pocet = 0;
+                        foreach (WebRezervace.Models.Rezervace rezervace in ViewBag.Data as List<WebRezervace.Models.Rezervace>)
+                        {
+                            if (rezervace.Datum <= datumKonkternihoDne + TimeSpan.FromHours(j) && rezervace.Datum + TimeSpan.FromMinutes(rezervace.Doba) > datumKonkternihoDne + TimeSpan.FromHours(j))
+                            {
+                                pocet += rezervace.PocetOsob;
+                            }
+                        }
+                        @:<td>@pocet/20</td>
+                    }
+                @:</tr>
+            }
+        </table>
+    }
+</div>

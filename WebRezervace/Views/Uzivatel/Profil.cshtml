@@ -4,31 +4,37 @@
 }
 
 <div>
+    @if (!Model.AdminOpravneni)
+    {
+        <div>
+            <form action="/Uzivatel/ZmenaUdaju" method="post">
+                <h4>Jméno</h4>
+                <input type="text" name="jmeno" placeholder="Jméno..." value="@Model.Jmeno" />
+                <h4>Příjmení</h4>
+                <input type="text" name="prijmeni" placeholder="Příjmení..." value="@Model.Prijmeni" />
+                <h4>Telefonní číslo</h4>
+                <input type="number" name="tel" min="0" placeholder="Telefonní číslo..." value="@Model.Tel" />
+                <h4>E-mail</h4>
+                <input type="email" name="email" placeholder="E-mail..." value="@Model.Email" />
+                <input type="submit" value="Změnit Udaje" />
+            </form>
+            <form action="/Uzivatel/ZmenaHesla" method="post">
+                <input type="password" name="stavajici_heslo" placeholder="Staré heslo..." />
+                <input type="password" name="heslo" placeholder="Nové heslo..." />
+                <input type="password" name="kontrolni_heslo" placeholder="Kontrolní heslo..." />
+                <input type="submit" value="Změnit Heslo" />
+            </form>
+        </div>
+    }
     <div>
-        <form action="/Uzivatel/ZmenaUdaju" method="post">
-            <h4>Jméno</h4>
-            <input type="text" name="jmeno" placeholder="Jméno..." value="@Model.Jmeno" />
-            <h4>Příjmení</h4>
-            <input type="text" name="prijmeni" placeholder="Příjmení..." value="@Model.Prijmeni"/>
-            <h4>Telefonní číslo</h4>
-            <input type="number" name="tel" min="0" placeholder="Telefonní číslo..." value="@Model.Tel"/>
-            <h4>E-mail</h4>
-            <input type="email" name="email" placeholder="E-mail..." value="@Model.Email"/>
-            <input type="submit" value="Změnit Udaje" />
-        </form>
-        <form action="/Uzivatel/ZmenaHesla" method="post">
-            <input type="password" name="stavajici_heslo" placeholder="Staré heslo..." />
-            <input type="password" name="heslo" placeholder="Nové heslo..." />
-            <input type="password" name="kontrolni_heslo" placeholder="Kontrolní heslo..." />
-            <input type="submit" value="Změnit Heslo" />
-        </form>
-    </div>
-    <div>
-        @foreach (WebRezervace.Models.Rezervace rezervace in Model.Rezervace)
+        @foreach (WebRezervace.Models.Rezervace rezervace in (Model.AdminOpravneni ? ViewBag.Data as List<WebRezervace.Models.Rezervace> : Model.Rezervace))
         {
             @:<div class="rezervace">
                 <div>@rezervace.Jmeno @rezervace.Prijmeni</div>
-                <div>@if (rezervace.Email.Length > 0) { @rezervace.Email } @if(rezervace.Email.Length > 0 && rezervace.Tel != 0) { <br/> } @if (rezervace.Tel != 0) { @rezervace.Tel }</div>
+                <div>@if (rezervace.Email.Length > 0)
+                {@rezervace.Email} @if (rezervace.Email.Length > 0 && rezervace.Tel != 0)
+                {<br />} @if (rezervace.Tel != 0)
+                {@rezervace.Tel}</div>
                 <div>@rezervace.PocetOsob</div>
                 <div>@rezervace.Datum - @(rezervace.Datum.TimeOfDay+TimeSpan.FromMinutes(rezervace.Doba))</div>
                 <div>X</div>

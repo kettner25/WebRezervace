@@ -121,6 +121,8 @@ namespace WebRezervace.Controllers
             uzivatel.Prijmeni = uzivatel.Prijmeni == null ? "" : uzivatel.Prijmeni;
             uzivatel.Rezervace = uzivatel.Rezervace.Count > 0 ? uzivatel.Rezervace : new List<Rezervace>();
 
+            ViewBag.Data = _context.Rezervace.OrderBy(r => r.Datum).ToList();
+
             return View(uzivatel);
         }
         public IActionResult ZmenaHesla(string stavajici_heslo, string heslo, string kontrolni_heslo)

@@ -2,8 +2,6 @@
 @using WebRezervace.Data
 @{
     ViewData["Title"] = "Rezervace";
-
-    var db = new WebRezervaceContext(new Microsoft.EntityFrameworkCore.DbContextOptions<WebRezervaceContext> { });
 }
 
 <div>
@@ -14,7 +12,7 @@
         <input type="text" name="prijmeni" placeholder="Příjmení..." value="@Model.Prijmeni" class="must" />
         <input type="email" name="email" placeholder="E-mail..." value="@Model.Email" />
         <input type="number" name="tel" placeholder="Telefonní číslo..." value="@Model.Tel" />
-        <input type="number" min="0" name="pocet_osob" placeholder="Počet osob..." value="@Model.PocetOsob" class="must" />
+        <input type="number" min="1" max="20" name="pocet_osob" placeholder="Počet osob..." value="@Model.PocetOsob" class="must" />
         <input type="date" min="@DateTime.Now.Year-@if (DateTime.Now.Month < 10) { @(0) }@DateTime.Now.Month-@DateTime.Now.Day" name="datum" class="must" />
         <input type="time" name="casOd" min="09:00" max="16:00" value="09:00" step="3600" class="must" />
         <input type="number" name="doba" min="1" max="7" value="@Model.Doba" />
@@ -25,5 +23,5 @@
     <div>
         @ViewData["Chyba"]
     </div>
-    
+    @Html.Partial("~/Views/Shared/_CalendarSheet.cshtml")
 </div>

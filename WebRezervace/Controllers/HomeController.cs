@@ -24,6 +24,8 @@ namespace WebRezervace.Controllers
 
             rezervace =  rezervace.OrderBy(r => r.Datum).ToList();
 
+            ViewBag.Data = rezervace;
+
             return View(rezervace);
         }
 
