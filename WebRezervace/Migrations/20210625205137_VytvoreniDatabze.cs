@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebRezervace.Migrations
 {
-    public partial class VytvoreniDatabaze : Migration
+    public partial class VytvoreniDatabze : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,10 +13,12 @@ namespace WebRezervace.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Jmeno = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Heslo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Tel = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Heslo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Jmeno = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Prijmeni = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tel = table.Column<int>(type: "int", nullable: false),
+                    AdminOpravneni = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,9 +31,14 @@ namespace WebRezervace.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Jmeno = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Prijmeni = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PocetOsob = table.Column<int>(type: "int", nullable: false),
                     Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Doba = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tel = table.Column<int>(type: "int", nullable: false),
+                    ZpravaProAdmina = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AutorID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

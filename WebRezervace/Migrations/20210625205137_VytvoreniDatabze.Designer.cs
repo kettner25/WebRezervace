@@ -10,8 +10,8 @@ using WebRezervace.Data;
 namespace WebRezervace.Migrations
 {
     [DbContext(typeof(WebRezervaceContext))]
-    [Migration("20210623182128_OpraveniVzájemnýchVazebRezervace")]
-    partial class OpraveniVzájemnýchVazebRezervace
+    [Migration("20210625205137_VytvoreniDatabze")]
+    partial class VytvoreniDatabze
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,7 @@ namespace WebRezervace.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AutorID")
+                    b.Property<int>("AutorID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Datum")
@@ -37,12 +37,25 @@ namespace WebRezervace.Migrations
                     b.Property<int>("Doba")
                         .HasColumnType("int");
 
-                    b.Property<string>("JmenoAPrijmeni")
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Jmeno")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PocetOsob")
                         .HasColumnType("int");
+
+                    b.Property<string>("Prijmeni")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Tel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZpravaProAdmina")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -87,7 +100,9 @@ namespace WebRezervace.Migrations
                 {
                     b.HasOne("WebRezervace.Models.Uzivatel", "Autor")
                         .WithMany("Rezervace")
-                        .HasForeignKey("AutorID");
+                        .HasForeignKey("AutorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Autor");
                 });
