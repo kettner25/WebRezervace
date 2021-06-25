@@ -6,10 +6,15 @@
 /*Obecný style*/
 body {
     margin: 0;
+    background-image: url("/img/bg.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #container {
     width: 1100px;
+    background-color: rgba(255, 255, 255, 0.953);
     margin: 0 auto;
 }
 
@@ -18,26 +23,36 @@ header {
     justify-content: space-between;
     align-items: center;
 
-    padding: 0;
+    padding-top: 0px;
     border-bottom: solid 2px var(--barva-nadpisu);
 }
 header h1 {
     margin: 0;
+    padding-left: 8px;
 }
 header nav a {
     padding: 10px;
     font-size: 21px;
     font-weight: bold;
 }
+header nav a:hover {
+    background-color: var(--barva-nadpisu);
+    color: white;
+    transition: 0.3s;
+}
 main {
-
+    min-height: 87.5vh;
+    padding: 1em;
 }
 footer {
     text-align: center;
+    padding: 10px;
+    border-top: 2px solid var(--barva-nadpisu);
 }
 
 h1 {
     font-size: 38px;
+    padding-left: 3px;
 }
 h2 {
     font-size: 33px;
@@ -46,6 +61,15 @@ h2 {
 a {
     text-decoration: none;
     color: inherit;
+}
+#uvod {
+    overflow: hidden;
+}
+#uvod img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    float: right;
 }
 
 /*Secure design options*/
@@ -122,4 +146,464 @@ a {
 
     white-space: nowrap;
     color: darkred;
+}
+
+/* Edit Rezervačního Kalendáře a Rezervace */
+
+.kalendar {
+    position: relative;
+    margin: 0 auto;
+    padding-bottom: 30px;
+    width: 90%;
+    user-select: none;
+}
+.kalendar table {
+    width: 100%;
+}
+.kalendar caption {
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 15px 0;
+}
+.kalendar tr:first-child th {
+    height: auto;
+}
+.kalendar th:first-child {
+    width: auto;
+    padding-left: 10px;
+    text-align: left;
+}
+.kalendar th, .kalendar td {
+    width: 100px;
+    height: 50px;
+    padding: 3px 5px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+#zpet, #dalsi {
+    top: 7px;
+    position: absolute;
+    font-size: 2.3em;
+    font-weight: bold;
+    cursor: pointer;
+}
+#zpet {
+    left: 5px;
+}
+#dalsi {
+    right: 5px;
+}
+
+.kalendar::-webkit-scrollbar {
+    height: 8px;
+}
+.kalendar::-webkit-scrollbar-track {
+    background: rgb(220, 220, 220);
+    border-radius: 8px;
+}
+.kalendar::-webkit-scrollbar-thumb{
+    background: rgb(41, 41, 41);
+    border-radius: 8px;
+}
+.kalendar::-webkit-scrollbar-thumb:hover{
+    background: rgb(106, 106, 106);
+    border-radius: 8px;
+}
+
+/* Rezervační formulář */
+
+#rezervace {
+    position: relative;
+
+    width: 90%;
+    margin: 0 auto;
+}
+#rezervace #chybova-hlaska {
+    text-align: left;
+    width: 100%;
+    padding: 8px 10px;
+}
+#rezervace > div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+#rezervace h3:nth-child(13) {
+    grid-column: 1 / span 2;
+}
+#rezervace input:nth-child(15) {
+    grid-column: 1 / span 2;
+}
+#rezervace textarea {
+    grid-column: 1 / span 3;
+}
+
+#rezervace h3, #udaje h3 {
+    margin: 3px 10px;
+    font-size: 1.15em;
+}
+#rezervace h3.must::after {
+    content: "*";
+    color: rgb(232, 21, 21);
+}
+#rezervace input, #rezervace textarea, #rezervace span, #udaje input {
+    margin: 10px;
+    padding: 8px;
+    border-radius: 10px;
+    border: gray solid 2px;
+    font-size: 17px;
+}
+input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 6px 2px rgb(123, 207, 238);
+}
+#rezervace input.must {
+    position: relative;
+}
+#rezervace span:nth-child(2) {
+    display: block;
+}
+#rezervace textarea {
+    display: block;
+    max-width: 96%;
+    resize: vertical;
+}
+#rezervace > div > input:last-child {
+    cursor: pointer;
+    color: white;
+    grid-column: 3 / span 1;
+    background: var(--barva-podkladu);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+/* Edit Profilu */
+
+#udaje {
+    margin: 20px 0;
+}
+#udaje form:first-child{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+#udaje form:nth-child(3) {
+    display: grid;
+}
+#udaje form input:nth-child(8) {
+    grid-column: 1 / span 2;
+}
+#udaje form input:last-child {
+    background-color: var(--barva-podkladu);
+    color: white;
+}
+
+.rezervace {
+    display: grid;
+    width: 100%;
+    cursor: pointer;
+    grid-template-columns: 200px 260px 130px 120px auto 35px;
+    border-bottom: gray 2px solid; 
+}
+.rezervace div, .rezervace a {
+    padding: 15px 8px;
+    font-size: 17px;
+}
+.rezervace div:nth-child(5) {
+    text-align: center;
+}
+.show {
+    display: block;
+    padding: 5px;
+    margin: 10px;
+    margin-bottom: 0;
+    border-bottom: 1px gray solid;
+}
+.hidden {
+    display: none !important;
+}
+
+@media screen and (max-width:1200px) and (min-width: 681px) {
+    #container {
+        max-width: 100%;
+    }
+    header nav a {
+        font-size: 19px;
+    }
+    main {
+        padding: 8px;
+    }
+    .rezervace {
+        grid-template-columns: repeat(2, auto) 140px;
+    }
+    .rezervace div:nth-child(5) {
+        text-align: left;
+    }
+    .rezervace a:last-child {
+        text-align: center;
+    }
+    #udaje form:first-child {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    #udaje form:first-child h3:nth-child(1) {
+        order: 1;
+    }
+    #udaje form:first-child h3:nth-child(2) {
+        order: 2;
+    }
+    #udaje form:first-child h3:nth-child(3) {
+        order: 5;
+    }
+    #udaje form:first-child h3:nth-child(7) {
+        order: 6;
+    }
+    #udaje form:first-child input:nth-child(4) {
+        order: 3;
+    }
+    #udaje form:first-child input:nth-child(5) {
+        order: 4;
+    }
+    #udaje form:first-child input:nth-child(6) {
+        order: 7;
+        grid-column: 1 / span 1;
+    }
+    #udaje form:first-child input:nth-child(8) {
+        order: 8;
+        grid-column: 2 / span 1;
+    }
+    #udaje form:first-child input:last-child {
+        order: 9;
+        grid-column: 1 / span 2;
+    }
+
+
+    #rezervace > div {
+        grid-template-columns: 1fr 1fr;
+    }
+    #rezervace textarea {
+        grid-column: 1 / span 2;
+    }
+    #rezervace > div > input:last-child {
+        grid-column: 1 / span 1;
+    }
+    #rezervace h3:nth-child(1) {
+        order: 1;
+    }
+    #rezervace h3:nth-child(2) {
+        order: 2;
+    }
+    #rezervace h3:nth-child(3) {
+        order: 5;
+    }
+    #rezervace h3:nth-child(7) {
+        order: 6;
+    }
+    #rezervace h3:nth-child(8) {
+        order: 9;
+    }
+    #rezervace h3:nth-child(9) {
+        order: 10;
+    }
+    #rezervace h3:nth-child(13) {
+        order: 13;
+        grid-column: 1 / span 1;
+    }
+    #rezervace h3:nth-child(14) {
+        order: 14;
+    }
+    #rezervace h3:nth-child(18) {
+        order: 18;
+    }
+
+    #rezervace input:nth-child(4) {
+        order: 3;
+    }
+    #rezervace input:nth-child(5) {
+        order: 4;
+    }
+    #rezervace input:nth-child(6) {
+        order: 7;
+    }
+    #rezervace input:nth-child(10) {
+        order: 8;
+    }
+    #rezervace input:nth-child(11) {
+        order: 11;
+    }
+    #rezervace input:nth-child(12) {
+        order: 12;
+    }
+    #rezervace input:nth-child(15) {
+        order: 15;
+        grid-column: 1 / span 1;
+    }
+    #rezervace input:nth-child(16) {
+        order: 16;
+    }
+    #rezervace input:last-child {
+        order: 19;
+    }
+    #rezervace textarea {
+        order: 17;
+    }
+    
+}
+@media screen and (max-width: 680px) {
+    #container {
+        max-width: 100%;
+    }
+    #secure-panel {
+        max-width: 90%;
+    }
+    main {
+        padding: 8px;
+    }
+    header {
+        display: block;
+        text-align: center;
+    }
+    h1 {
+        font-size: 40px;
+    }
+    header nav {
+        display: grid;
+    }
+    header nav a:hover {
+        background-color: transparent;
+        color: black;
+    }
+    .kalendar {
+        width: 90%;
+        overflow-x: scroll;
+    }
+    .kalendar table {
+        width: 650px;
+    }
+    .kalendar caption {
+        text-align: left;
+        padding-left: 35px;
+    }
+    .rezervace {
+        grid-template-columns: repeat(2, auto) 140px;
+    }
+    .rezervace div:nth-child(5) {
+        text-align: left;
+    }
+    .rezervace a:last-child {
+        text-align: center;
+    }
+    #udaje form:first-child {
+        grid-template-columns: auto;
+    }
+    #udaje form:first-child h3:nth-child(1) {
+        order: 1;
+    }
+    #udaje form:first-child h3:nth-child(2) {
+        order: 3;
+    }
+    #udaje form:first-child h3:nth-child(3) {
+        order: 5;
+    }
+    #udaje form:first-child h3:nth-child(7) {
+        order: 7;
+    }
+    #udaje form:first-child input:nth-child(4) {
+        order: 2;
+    }
+    #udaje form:first-child input:nth-child(5) {
+        order: 4;
+    }
+    #udaje form:first-child input:nth-child(6) {
+        order: 6;
+        grid-column: 1 / span 1;
+    }
+    #udaje form:first-child input:nth-child(8) {
+        order: 8;
+        grid-column: 1 / span 1;
+    }
+    #udaje form:first-child input:last-child {
+        order: 9;
+        grid-column: 1 / span 1;
+    }
+
+
+    #rezervace > div {
+        grid-template-columns: auto;
+    }
+    #rezervace textarea {
+        grid-column: 1 / span 1;
+    }
+    #rezervace > div > input:last-child {
+        grid-column: 1 / span 1;
+    }
+    #rezervace h3:nth-child(1) {
+        order: 1;
+    }
+    #rezervace h3:nth-child(2) {
+        order: 3;
+    }
+    #rezervace h3:nth-child(3) {
+        order: 5;
+    }
+    #rezervace h3:nth-child(7) {
+        order: 7;
+    }
+    #rezervace h3:nth-child(8) {
+        order: 9;
+    }
+    #rezervace h3:nth-child(9) {
+        order: 11;
+    }
+    #rezervace h3:nth-child(13) {
+        order: 13;
+        grid-column: 1 / span 1;
+    }
+    #rezervace h3:nth-child(14) {
+        order: 15;
+    }
+    #rezervace h3:nth-child(18) {
+        order: 18;
+    }
+
+    #rezervace input:nth-child(4) {
+        order: 2;
+    }
+    #rezervace input:nth-child(5) {
+        order: 4;
+    }
+    #rezervace input:nth-child(6) {
+        order: 6;
+    }
+    #rezervace input:nth-child(10) {
+        order: 8;
+    }
+    #rezervace input:nth-child(11) {
+        order: 10;
+    }
+    #rezervace input:nth-child(12) {
+        order: 12;
+    }
+    #rezervace input:nth-child(15) {
+        order: 14;
+        grid-column: 1 / span 1;
+    }
+    #rezervace input:nth-child(16) {
+        order: 16;
+    }
+    #rezervace input:last-child {
+        order: 19;
+    }
+    #rezervace textarea {
+        order: 17;
+    }
 }

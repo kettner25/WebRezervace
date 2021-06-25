@@ -1,27 +1,35 @@
 ﻿@model WebRezervace.Models.Rezervace
-@using WebRezervace.Data
 @{
     ViewData["Title"] = "Rezervace";
 }
 
 <div>
-    <form action="/Rezervace/Formular" method="post">
-        <h2>Rezervační Formulář</h2>
-        <span class="must"> Povinné pole</span>
-        <input type="text" name="jmeno" placeholder="Jméno..." value="@Model.Jmeno" class="must" />
-        <input type="text" name="prijmeni" placeholder="Příjmení..." value="@Model.Prijmeni" class="must" />
-        <input type="email" name="email" placeholder="E-mail..." value="@Model.Email" />
-        <input type="number" name="tel" placeholder="Telefonní číslo..." value="@Model.Tel" />
-        <input type="number" min="1" max="20" name="pocet_osob" placeholder="Počet osob..." value="@Model.PocetOsob" class="must" />
-        <input type="date" min="@DateTime.Now.Year-@if (DateTime.Now.Month < 10) { @(0) }@DateTime.Now.Month-@DateTime.Now.Day" name="datum" class="must" />
-        <input type="time" name="casOd" min="09:00" max="16:00" value="09:00" step="3600" class="must" />
-        <input type="number" name="doba" min="1" max="7" value="@Model.Doba" />
-        <textarea name="zprava" placeholder="Chcete nám něco sdělit?">@Model.ZpravaProAdmina</textarea>
-        <span>Cena</span>
-        <input type="submit" value="Odeslat" />
-    </form>
-    <div>
-        @ViewData["Chyba"]
-    </div>
+    <h2>Rezervační Formulář</h2>
     @Html.Partial("~/Views/Shared/_CalendarSheet.cshtml")
+    <form action="/Rezervace/Formular" method="post" id="rezervace">
+        <div>
+            <h3 class="must">Jméno</h3>
+            <h3 class="must">Příjmení</h3>
+            <h3 class="must">Počet Osob</h3>
+            <input type="text" name="jmeno" placeholder="Jméno..." value="@Model.Jmeno" />
+            <input type="text" name="prijmeni" placeholder="Příjmení..." value="@Model.Prijmeni" />
+            <input type="number" min="1" max="20" name="pocet_osob" placeholder="Počet osob..." value="@Model.PocetOsob" />
+            <h3 class="must">Datum dne pro rezervaci</h3>
+            <h3 class="must">Čas rezervace (Pouze hodiny)</h3>
+            <h3 class="must">Doba rezervace v hodinách</h3>
+            <input type="date" min="@DateTime.Now.Year-@if (DateTime.Now.Month < 10) { @(0) }@DateTime.Now.Month-@DateTime.Now.Day" name="datum" />
+            <input type="time" name="casOd" min="09:00" max="16:00" value="09:00" step="3600" />
+            <input type="number" name="doba" min="1" max="7" value="@Model.Doba" />
+            <h3>E-mailová adresa</h3>
+            <h3>Telefonní číslo (např.: 605 168 450)</h3>
+            <input type="email" name="email" placeholder="E-mail..." value="@Model.Email" />
+            <input type="number" name="tel" placeholder="Telefonní číslo..." value="@Model.Tel" />
+            <textarea name="zprava" placeholder="Chcete nám něco sdělit?">@Model.ZpravaProAdmina</textarea>
+            <h3 class="must"> Povinné pole</h3>
+            <input type="submit" value="Odeslat" />
+        </div>
+    <p id="chybova-hlaska">
+        @ViewData["Chyba"]
+    </p>
+    </form>
 </div>

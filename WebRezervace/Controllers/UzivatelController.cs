@@ -34,6 +34,9 @@ namespace WebRezervace.Controllers
             ViewData["Chyba"] = HttpContext.Session.GetString("Chyba") == null ? "" : HttpContext.Session.GetString("Chyba");
             HttpContext.Session.SetString("Chyba", "");
 
+            //Pokud v databázi neexistuje Admin vytvoří se
+            if (_context.Uzivatele.Where(u => u.AdminOpravneni).FirstOrDefault() == null) { _context.Uzivatele.Add(new Uzivatel { Email = "Admin", Heslo = BCrypt.Net.BCrypt.HashPassword("heslo"), AdminOpravneni = true }); _context.SaveChanges(); }
+
             return View();
         }
         [HttpPost]
@@ -72,7 +75,7 @@ namespace WebRezervace.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Zaregistrovat(string email, string heslo, string kontrolni_heslo, int admin_kod)
+        public IActionResult Zaregistrovat(string email, string heslo, string kontrolni_heslo)
         {
             if (email == null || email.Trim().Length == 0 || heslo == null || heslo.Trim().Length == 0)
             {
@@ -111,6 +114,15 @@ namespace WebRezervace.Controllers
         {
             if (!ZkontrolujSession())
                 RedirectToAction("Prihlasit");
+
+            foreach(Rezervace rezervace in _context.Rezervace.ToList())
+            {
+                if (rezervace.Datum < DateTime.Now && (DateTime.Now - rezervace.Datum).TotalDays > 10)
+                {
+                    _context.Rezervace.Remove(rezervace);
+                    _context.SaveChanges();
+                }
+            }
 
             ViewData["Chyba"] = HttpContext.Session.GetString("Chyba") == null ? "" : HttpContext.Session.GetString("Chyba");
             HttpContext.Session.SetString("Chyba", "");
@@ -169,6 +181,19 @@ namespace WebRezervace.Controllers
             _context.Uzivatele.Where(u => u.Email == HttpContext.Session.GetString("Uzivatel")).First().Email = email;
 
             _context.SaveChanges();
+
+            return RedirectToAction("Profil");
+        }
+
+        public IActionResult OdstranRezervaci(int id)
+        {
+            Rezervace rezervace = _context.Rezervace.Where(r => r.ID == id).FirstOrDefault();
+
+            if (rezervace != null)
+            {
+                _context.Rezervace.Remove(rezervace);
+                _context.SaveChanges();
+            }
 
             return RedirectToAction("Profil");
         }

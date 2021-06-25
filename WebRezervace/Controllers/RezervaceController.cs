@@ -26,11 +26,11 @@ namespace WebRezervace.Controllers
         [HttpGet]
         public IActionResult Formular()
         {
-            if (!ZkontrolujSession())
+            /*if (!ZkontrolujSession())
             {
                 HttpContext.Session.SetString("Chyba", "Pro vyplnění rezervace se přihlašte!");
                 return Redirect("/Uzivatel/Prihlasit");
-            }
+            }*/
 
             Rezervace rezervace = new Rezervace { Jmeno = "", Prijmeni = "", Email = "", Tel = 0, PocetOsob = 1, ZpravaProAdmina = "", Doba = 1 };
             
@@ -88,7 +88,10 @@ namespace WebRezervace.Controllers
 
             zprava = zprava == null ? "" : zprava;
 
-            Uzivatel uzivatel =  _context.Uzivatele.Where(u => u.Email == HttpContext.Session.GetString("Uzivatel")).First();
+            Uzivatel uzivatel = new Uzivatel();
+
+            if (ZkontrolujSession())
+                uzivatel =  _context.Uzivatele.Where(u => u.Email == HttpContext.Session.GetString("Uzivatel")).First();
 
             datum += casOd.TimeOfDay;
 
@@ -110,7 +113,12 @@ namespace WebRezervace.Controllers
                 }
             }
 
-            Rezervace rezervace = new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Doba = doba * 60, Datum = datum, Email = email, Tel = tel, ZpravaProAdmina = zprava, Autor = uzivatel };
+            Rezervace rezervace = new Rezervace();
+
+            if (ZkontrolujSession())
+                rezervace = new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Doba = doba * 60, Datum = datum, Email = email, Tel = tel, ZpravaProAdmina = zprava, Autor = uzivatel };
+            else // Předpokládá se, že Adminský účet bude na stránce alespoň jeden! Admin účet slouží pouze pro kontrolu a správu rezervací.
+                rezervace = new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Doba = doba * 60, Datum = datum, Email = email, Tel = tel, ZpravaProAdmina = zprava, Autor = _context.Uzivatele.Where(u => u.AdminOpravneni == true).First() };
 
             _context.Rezervace.Add(rezervace);
             _context.SaveChanges();
