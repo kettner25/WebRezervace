@@ -10,7 +10,11 @@
         DateTime datumTydne = datumPrvnihoTydne + TimeSpan.FromDays(i);
         <div id="kalendar@(i/7)" class="kalendar" style="display:none">
             <table>
-                <caption>Týden: @datumTydne.Day. @datumTydne.Month. - @((datumTydne + TimeSpan.FromDays(6)).Day). @((datumTydne + TimeSpan.FromDays(6)).Month).</caption>
+                <caption>
+                    <span onclick="KalendarZpet()" id="zpet">&lt;</span>
+                    <span>Týden: @datumTydne.Day. @datumTydne.Month. - @((datumTydne + TimeSpan.FromDays(6)).Day). @((datumTydne + TimeSpan.FromDays(6)).Month).</span>
+                    <span onclick="KalendarDalsi()" id="dalsi">&gt;</span>
+                </caption>
                 <tr>
                     <th></th>
                     @for (int j = 9; j < 16; j++)
@@ -33,13 +37,11 @@
                                     pocet += rezervace.PocetOsob;
                                 }
                             }
-                            @:<td>@pocet/20</td>
+                            @:<td style="background-color:@(pocet < 10 ? "rgb(85, 255, 70)" : pocet != 20 ? "rgb(255, 182, 48)" : "rgb(247, 101, 113)")">@pocet/20</td>
                         }
                     @:</tr>
                 }
             </table>
-            <span onclick="KalendarZpet()" id="zpet">&lt;</span>
-            <span onclick="KalendarDalsi()" id="dalsi">&gt;</span>
         </div>
     }
 </div>

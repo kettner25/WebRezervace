@@ -18,9 +18,11 @@
             <h3 class="must">Čas rezervace (Pouze hodiny)</h3>
             <h3 class="must">Doba rezervace v hodinách</h3>
             <input type="date" min="@DateTime.Now.Year-@if (DateTime.Now.Month < 10) { @(0) }@DateTime.Now.Month-@DateTime.Now.Day" name="datum" />
-            <input type="time" name="casOd" min="09:00" max="16:00" value="09:00" step="3600" />
+            <input type="time" name="casOd" min="09:00" max="15:00" value="@if (Model.Datum.Hour < 10) { @(0) }@Model.Datum.Hour:00" step="3600" />
             <input type="number" name="doba" min="1" max="7" value="@Model.Doba" />
+
             <h3>E-mailová adresa</h3>
+
             <h3>Telefonní číslo (např.: 605 168 450)</h3>
             <input type="email" name="email" placeholder="E-mail..." value="@Model.Email" />
             <input type="number" name="tel" placeholder="Telefonní číslo..." value="@Model.Tel" />

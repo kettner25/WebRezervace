@@ -32,7 +32,7 @@ namespace WebRezervace.Controllers
                 return Redirect("/Uzivatel/Prihlasit");
             }*/
 
-            Rezervace rezervace = new Rezervace { Jmeno = "", Prijmeni = "", Email = "", Tel = 0, PocetOsob = 1, ZpravaProAdmina = "", Doba = 1 };
+            Rezervace rezervace = new Rezervace { Jmeno = "", Prijmeni = "", Email = "", Tel = 0, PocetOsob = 1, ZpravaProAdmina = "", Doba = 1, Datum = DateTime.Now.Date + TimeSpan.FromHours(9) };
             
             if (ZkontrolujSession())
             {
@@ -58,13 +58,13 @@ namespace WebRezervace.Controllers
             {
                 ViewData["Chyba"] = "Povinná pole nesmí být prázdná!";
                 ViewBag.Data = _context.Rezervace.ToList();
-                return View(new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Email = email, Tel = tel, ZpravaProAdmina = zprava });
+                return View(new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Email = email, Tel = tel, ZpravaProAdmina = zprava, Doba = doba, Datum = datum + casOd.TimeOfDay });
             }
             if (casOd.Hour < 9 || casOd.Hour > 15 || casOd.Hour + doba > 16 || datum < DateTime.Now)
             {
                 ViewData["Chyba"] = "Pracovní doba je pouze od 9-16h! Rezervace přijímáme pouze na druhý den!";
                 ViewBag.Data = _context.Rezervace.ToList();
-                return View(new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Email = email, Tel = tel, ZpravaProAdmina = zprava });
+                return View(new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Email = email, Tel = tel, ZpravaProAdmina = zprava, Doba = doba, Datum = datum + casOd.TimeOfDay });
             }
 
             if (email != null)
@@ -74,7 +74,7 @@ namespace WebRezervace.Controllers
                 {
                     ViewData["Chyba"] = "Zadejte platnou E-mailovou adresu!";
                     ViewBag.Data = _context.Rezervace.ToList();
-                    return View(new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Email = email, Tel = tel, ZpravaProAdmina = zprava });
+                    return View(new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Email = email, Tel = tel, ZpravaProAdmina = zprava, Doba = doba, Datum = datum + casOd.TimeOfDay });
                 }
             }
             else email = "";
@@ -83,7 +83,7 @@ namespace WebRezervace.Controllers
             {
                 ViewData["Chyba"] = "Zadejte platné telefonní číslo!";
                 ViewBag.Data = _context.Rezervace.ToList();
-                return View(new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Email = email, Tel = tel, ZpravaProAdmina = zprava });
+                return View(new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Email = email, Tel = tel, ZpravaProAdmina = zprava, Doba = doba, Datum = datum + casOd.TimeOfDay });
             }
 
             zprava = zprava == null ? "" : zprava;
@@ -109,7 +109,7 @@ namespace WebRezervace.Controllers
                 {
                     ViewData["Chyba"] = $"Na {i}. hodinu již není možná rezervace! Limit osob naplněn!";
                     ViewBag.Data = _context.Rezervace.ToList();
-                    return View(new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Email = email, Tel = tel, ZpravaProAdmina = zprava });
+                    return View(new Rezervace { Jmeno = jmeno, Prijmeni = prijmeni, PocetOsob = pocet_osob, Email = email, Tel = tel, ZpravaProAdmina = zprava, Doba = doba, Datum = datum + casOd.TimeOfDay });
                 }
             }
 

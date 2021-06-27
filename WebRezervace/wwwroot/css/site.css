@@ -182,7 +182,7 @@ a {
     border-radius: 5px;
 }
 #zpet, #dalsi {
-    top: 7px;
+    top: 0px;
     position: absolute;
     font-size: 2.3em;
     font-weight: bold;
@@ -490,8 +490,8 @@ input[type=number] {
         width: 650px;
     }
     .kalendar caption {
-        text-align: left;
-        padding-left: 35px;
+        text-align: center;
+        position: relative;
     }
     .rezervace {
         grid-template-columns: repeat(2, auto);

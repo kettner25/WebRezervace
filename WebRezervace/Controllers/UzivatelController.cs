@@ -22,7 +22,7 @@ namespace WebRezervace.Controllers
         {
             bool Prihlaseny = false;
 
-            if (HttpContext.Session.GetString("Uzivatel") != null && _context.Uzivatele.Where(u => u.Email == HttpContext.Session.GetString("Uzivatel")).FirstOrDefault() != null)
+            if (HttpContext.Session.GetString("Uzivatel") != null && HttpContext.Session.GetString("Uzivatel").Length != 0 && _context.Uzivatele.Where(u => u.Email == HttpContext.Session.GetString("Uzivatel")).FirstOrDefault() != null)
                 Prihlaseny = true;
 
             return Prihlaseny;
@@ -33,9 +33,6 @@ namespace WebRezervace.Controllers
         {
             ViewData["Chyba"] = HttpContext.Session.GetString("Chyba") == null ? "" : HttpContext.Session.GetString("Chyba");
             HttpContext.Session.SetString("Chyba", "");
-
-            //Pokud v databázi neexistuje Admin vytvoří se
-            if (_context.Uzivatele.Where(u => u.AdminOpravneni).FirstOrDefault() == null) { _context.Uzivatele.Add(new Uzivatel { Email = "Admin", Heslo = BCrypt.Net.BCrypt.HashPassword("heslo"), AdminOpravneni = true }); _context.SaveChanges(); }
 
             return View();
         }

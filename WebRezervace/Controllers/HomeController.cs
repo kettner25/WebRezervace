@@ -20,8 +20,12 @@ namespace WebRezervace.Controllers
 
         public IActionResult Index()
         {
+
             List<Rezervace> rezervace = _context.Rezervace.ToList();
 
+            //Pokud v databázi neexistuje Admin vytvoří se
+            if (_context.Uzivatele.Where(u => u.AdminOpravneni).FirstOrDefault() == null) { _context.Uzivatele.Add(new Uzivatel { Email = "Admin", Heslo = BCrypt.Net.BCrypt.HashPassword("heslo"), AdminOpravneni = true }); _context.SaveChanges(); }
+            
             rezervace =  rezervace.OrderBy(r => r.Datum).ToList();
 
             ViewBag.Data = rezervace;
